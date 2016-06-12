@@ -13,12 +13,9 @@ a:hover {color:#979797;}
 a img{border:0px;}
 
 #container{
-	width:950px;
-	margin:0px auto 300px auto;
-	/*background:url(images/body-bg.png);*/
-	overflow:auto;
-	padding-bottom:100px;
-	background-color: whitesmoke;
+	overflow: auto;
+    padding-bottom: 100px;
+    background-color: whitesmoke;
 }
 
 /****************************************************/
@@ -26,14 +23,11 @@ a img{border:0px;}
 /****************************************************/
 
 #header{
-	width:864px;
-	height:115px;
-	background-color:#222222;
-	padding:0px 43px;
-	position: fixed;
-	top:0px;
-	left:50%;
-	margin: 0 0 0 -475px;
+	height: 115px;
+    background-color: #222222;
+    padding: 0px 43px;
+    top: 0px;
+    width: 92%;
 }
 #header #logo{
 	padding-top:40px;
