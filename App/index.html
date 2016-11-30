@@ -7,6 +7,30 @@
             width:100px;
             color: black;
         }
+        .logos {
+    margin: 5px 0px 5px 0px;
+}
+.undp-nepal {
+    /* margin-top: 15px; */
+    overflow: hidden;
+    line-height: 2;
+}
+.wrapper-header {
+    background-color: #E6E6E6;
+}
+.wrapper {
+    overflow: hidden;
+    background: url(../assets/img/background.png);
+}
+.undp-nepal h2 {
+    color: #ef2129;
+}
+
+/*.clearfix{
+    height:1px;
+}*/
+
+
     </style>
     <script src="../assets/js/jquery-1.10.2.js"></script>
     <script src="../assets/js/jqueryUi.js"></script>
@@ -16,43 +40,112 @@
     <link href="../assets/css/master.css" rel="stylesheet"/>
     <script type="text/javascript">
         $(function(){
+             $("#myBtn").click(function(){
+        $("#myModal").modal();
+    });
            $("#resultRow").hide();
-            var obj = {a: "Hello", b: "World"};
-            saveText( JSON.stringify(obj), "filename.json" );
+            $.ajax({
+                type:"POST",
+                url:"../server/JsonBuilder.php",
+                data:{lat:87,lng:27,area:290},
+                success:function(data){
+                    console.log("success")
+                },error:function (er) {
+                    console.log("error")
+                }
+            })
         });
     </script>
+    <script>
+
+</script>
 </head>
 <body>
-<div class="container" style="width: 90%;margin:20px auto 0;">
+    <div class="wrapper">
+<div class="wrapper-header col-md-10 col-md-offset-1">
+    <div class="header">
+        <div class="header_top">
+            <div class="logos col-md-10 col-sm-10">
 
-    <div class="row"style="border: 1px solid black">
-        <div class="col-md-8" id="openMap">
+                <div class="undp-nepal">
+                    <!-- <img class="img-responsive pull-left" src="img/nepal-small.png" alt="UNDP Nepal">
+                                        <span style="color: #ef2121;font-weight: 700;font-size: 15px;">UNDP in Nepal</span>-->
+                    <div style="width:13%;">
+                        <img src="../assets/img/GOVN.png" class="img-responsive pull-left" alt="logo" width="">
+                    </div>
+                    <div style="width:87%;">
+                       <h2 style="font-size:30px">Alternative Energy Promotion Center (AEPC)</h2>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-12" style="padding:5px 0;">
+                <div class="col-md-6 col-sm-6 col-xs-6" >
+                    <img class="img-responsive" src="../assets/img/UNDP.png" alt="UNDP" width="60px;">
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <img class="img-responsive" src="../assets/img/GEF.png" alt="logo" width="108px;" style="padding-top:10px;">
+                </div>
+            </div>
+        </div>
+       
+     
+           <!--  <div class="navbar-collapse collapse row" style="height: 1px;"> -->
+         
+                        
+ <div class="clearfix"></div>
+
+    </div>
+
+     <hr style="border:1px solid #555">
+      <div class="col-md-12">
+        <div class="col-md-5">
+            <h3>RoofTop Solar PV Estimation-Nepal</h3>
+            </div>
+                <div class="col-md-6">
+                    <button style="margin-top: 15px;" class="btn btn-primary" id="myBtn">Instructions</button>
+            </div>
+      </div>
+     
+      <div class="clearfix"></div>
+     
+<div class="" style="width: 95%;margin:20px auto 0;">
+
+    <div class="row"style="border: 1px solid #006cb7">
+        <div class="col-md-10" id="openMap">
             <canvas id="destinationCanvas" class="hide"></canvas>
             <div id="basicMap"></div>
             <img id="destiImage"/>
         </div>
 
         <br>
-        <div class="col-md-4">
-            <div class="well">
-                <label for="search">Search By City</label>
+        <div class="col-md-2">
+            <!-- <div class="well"> -->
+                <!-- <label for="search">Search By City</label>
                 <input  type="text" name="search" id="searchtext" class="form-control" placeholder="search by city"><br>
-                <button  onclick="search()" name="search" id="search" class="btn btn-primary">search</button><br><hr>
+                <button  onclick="search()" name="search" id="search" class="btn btn-primary">search</button><br><hr> -->
                 <ul id="controlToggle" style="list-style: none">
                     <li>
-                        <button id="drawPoly">Start</button>
-                        <button id="resetMap">Reset</button>
-                    </li><br>
+
+                        <button class="btn btn-success" id="drawPoly">Start</button>
+                       
+                    </li>
+                    <br>
+                    <li>
+                     <button class="btn btn-danger" id="resetMap">Reset</button></li>
+                    <br>
                     <li>
                         <button onclick="uploadImageData()" class="btn"><i class="icon-download"></i>Process</button>
                     </li>
                 </ul>
-            </div>
+            <!-- </div> -->
         </div>
     </div>
+</div>
     <br><br><br>
-    <div class="row" id="resultRow" style="border: 1px lightslategray solid;">
-        <div class="row" style="text-align: center">
+    <div  id="resultRow" style="border: 1px solid #006cb7">
+        <div  style="text-align: center">
             <h1>Process Result</h1>
         </div>
         <div class="row" style="margin-left: 0">
@@ -144,15 +237,44 @@
         </div>
     </div>
 </div>
+</div>
+ <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog" style="
+    margin-top: 115px;">
+    <div class="modal-dialog">
 
-<footer class="footer-distributed">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-body">
+           
+           <div class="instruction_primary">
+            
+            <ul style="text-align:center;list-style: none"><li><span class="instruction"></span>Click to draw polygon on a map. </li><li>
+                <span class="instruction">
+                </span>Click to reset the drawn polygon.
+            </li>
+            <li><span class="instruction"></span>Click the button after drawing polygon on the map to get the result </li>
+        </ul>
+  </div>
+    </div>
+         
+       
+        
+      </div>
+    </div>
+  </div> 
+</div>
+<footer>
+    </footer>
+
+<!-- <footer class="footer-distributed">
     <div class="footer-center">
         <h3><span>Roof Top Solar Estimation</span></h3>
 
         <p class="footer-company-name">RTSE &copy; 2016</p>
     </div>
 
-</footer>
+</footer> -->
 <script>
     var drawInteraction,selectInteraction,modifyInteraction;
     var coordinateData=[],imageData;

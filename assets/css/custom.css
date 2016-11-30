@@ -558,3 +558,43 @@ div.olControlTextButtonPanel.vertical .olButton:last-child {
 img.olTileImage {
     max-width: none;
 }
+
+
+.instruction{
+    background-color: #6cb5df;
+    height: 1px;
+    /* margin-left: -59px; */
+    /* margin-right: 7px; */
+    position: absolute;
+    left: 95%;
+    top: 1.6em;
+    width: 105px;
+}
+.instruction:before {
+    background-color: #6cb5df;
+    border-radius: 50%;
+    content: "";
+    height: 7px;
+    right: 0;
+    position: absolute;
+    top: -3px;
+    width: 7px;
+}
+.instruction_primary li {
+    font-size: 18px;
+    font-size: 1.8rem;
+    color: #2681b5;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    position: relative;
+}
+.instruction_primary {
+    padding-top: 10px;
+    padding-top: 1rem;
+    padding-bottom: 15px;
+    padding-bottom: 1.5rem;
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+}
