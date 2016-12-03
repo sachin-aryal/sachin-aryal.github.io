@@ -7,7 +7,7 @@
             width:100px;
             color: black;
         }
-        .logos {
+.logos {
     margin: 5px 0px 5px 0px;
 }
 .undp-nepal {
@@ -37,11 +37,18 @@
     <script src="../assets/js/openLayer.js"></script>
     <script src="../assets/js/processImage.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/notify.js"></script>
     <link href="../assets/css/master.css" rel="stylesheet"/>
     <script type="text/javascript">
         $(function(){
              $("#myBtn").click(function(){
-        $("#myModal").modal();
+        $("#start").notify("Click Start to draw polygon on map",{ elementPosition:"left", className:'info',hideDuration: 800});
+         $("#reset").notify("Click reset on the map below for further processing",{ elementPosition:"left",className:'info',hideDuration: 800});
+          $("#process").notify("Click process to see the result", {elementPosition:"left",className:'info',hideDuration: 800});
+    });
+        $("#drawPoly").click(function(){
+       $("#myBtn").notify("Draw polygon on the map below for further processing", { elementPosition:"bottom left", className:'info'});
+  
     });
            $("#resultRow").hide();
             $.ajax({
@@ -100,14 +107,27 @@
 
      <hr style="border:1px solid #555">
       <div class="col-md-12">
-        <div class="col-md-5">
-            <h3>RoofTop Solar PV Estimation-Nepal</h3>
+        <div class="col-md-6">
+            <div class="col-md-8">
+            <h4>RoofTop Solar PV Estimation</h4>
+        </div>
+            <div class="col-md-4">
+            <button  class="btn btn-primary" id="myBtn"><span class=" glyphicon glyphicon-info-sign" ></span>&nbsp;Instructions</button>
             </div>
-                <div class="col-md-6">
-                    <button style="margin-top: 15px;" class="btn btn-primary" id="myBtn">Instructions</button>
-            </div>
+        </div>
+               <!--  <div class="col-md-6" >
+                  
+                   <div class="col-md-8" >
+                    <input type="text" class="form-control" placeholder="Enter Location to Search">
+                </div>
+                    <div class="col-md-4" >
+                    <button class="btn btn-primary"><span class="glyphicon glyphicon-search" ></span>&nbsp;Search</button>
+                </div>
+                  
+            </div> -->
       </div>
-     
+
+    
       <div class="clearfix"></div>
      
 <div class="" style="width: 95%;margin:20px auto 0;">
@@ -127,16 +147,19 @@
                 <button  onclick="search()" name="search" id="search" class="btn btn-primary">search</button><br><hr> -->
                 <ul id="controlToggle" style="list-style: none">
                     <li>
-
-                        <button class="btn btn-success" id="drawPoly">Start</button>
+                        <span id="start"></span>
+                        <button class="btn btn-primary" id="drawPoly"> <span class="glyphicon glyphicon-off"></span>&nbsp;Start</button> <span id="draw"></span>
                        
                     </li>
                     <br>
                     <li>
-                     <button class="btn btn-danger" id="resetMap">Reset</button></li>
+                        <span id="reset"></span>
+                     <button class="btn btn-primary" id="resetMap"><span class="glyphicon glyphicon-repeat"></span>&nbsp;Reset</button> <span class="resetMap"></span>
+                 </li>
                     <br>
                     <li>
-                        <button onclick="uploadImageData()" class="btn"><i class="icon-download"></i>Process</button>
+                        <span id="process"></span>
+                        <button class="btn btn-primary" onclick="uploadImageData()" class="btn"><span class="glyphicon glyphicon-refresh"></span>&nbsp;Process</button> <span class="Processbtn"></span>
                     </li>
                 </ul>
             <!-- </div> -->
@@ -257,8 +280,6 @@
         </ul>
   </div>
     </div>
-         
-       
         
       </div>
     </div>
@@ -325,13 +346,39 @@
         })
 
     });
+    var iconFeature = new ol.Feature({
+  geometry: new ol.geom.Point([85.32247, 27.68248]),
+  name: 'Null Island',
+  population: 4000,
+  rainfall: 500
+});
+
+var iconStyle = new ol.style.Style({
+  image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+    anchor: [0.5, 46],
+    anchorXUnits: 'fraction',
+    anchorYUnits: 'pixels',
+    opacity: 0.75,
+    src: '../assets/img/GEF.png'
+  }))
+});
+
+iconFeature.setStyle(iconStyle);
+var vectorSource = new ol.source.Vector({
+  features: [iconFeature]
+});
+
+var vectorLayer1 = new ol.layer.Vector({
+  source: vectorSource
+});
 
     var vectorSource = new ol.source.Vector();
     var vectorLayer = new ol.layer.Vector({
         source:vectorSource,
         style: styles
+       
     });
-    map.addLayer(vectorLayer);
+    map.addLayer(vectorLayer,vectorLayer1);
 
 
     var startDraw = document.getElementById('drawPoly');
@@ -387,8 +434,16 @@
     });
 
     function uploadImageData(){
-        startProcess(polyXPoints,polyYPoints);
-    }
+       
+        if(polyYPoints==''&&polyYPoints==''){
+           $("#draw").notify("press start button to Process", "info", { elementPosition:"bottom left", className:'info'});
+         
+       }
+        else{
+        startProcess(polyXPoints,polyYPoints);}
+   
+    
+}
 
 </script>
 
