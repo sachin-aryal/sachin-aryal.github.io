@@ -3,56 +3,221 @@
 <head>
     <title>RTPE</title>
     <style type="text/css">
+    .rectangle {
+    background: #1c4b6f;
+    /* height: 50px; */
+    /* position: relative; */
+    /* left: -28px; */
+    /* top: 14px; */
+    float: left;
+    margin-left: -73px;
+    width:124%;
+    border-bottom-right-radius: 35px;
+}
+
+.triangle-l {
+    border-color: transparent #1c4b6f transparent transparent;
+    border-style: solid;
+    border-width: 15px;
+    /* height: 1px; */
+    width: 0px;
+    margin-left: -88px;
+    margin-bottom: -51px;
+    margin-top: 14px;
+    /* position: relative; */
+    /* left: -61px; */
+    top: 14px;
+    /* z-index: -1; */
+}
+.rectangle h4 {
+    font-family: 'Shadows Into Light Two', cursive;
+    font-size: 24px;
+    color: #fff;
+    margin-top: 0px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    text-align: center;
+}
         input{
             width:100px;
             color: black;
         }
+.logos {
+    margin: 5px 0px 5px 0px;
+}
+.undp-nepal {
+    /* margin-top: 15px; */
+    overflow: hidden;
+    line-height: 2;
+}
+.wrapper-header {
+    background-color: #E6E6E6;
+}
+.wrapper {
+    overflow: hidden;
+    background: url(../assets/img/background.png);
+}
+.undp-nepal h2 {
+    color: #ef2129;
+}
+
+ .ol-control button{
+            background-color: rgba(40, 40, 40, 0.8) !important;
+        }
+        .ol-control button:hover{
+            background-color: rgba(40, 40, 40, 1) !important;
+        }
+.noMg {
+    margin: 0;
+}
+        .noPg {
+            padding: 0;
+        }
+
     </style>
     <script src="../assets/js/jquery-1.10.2.js"></script>
     <script src="../assets/js/jqueryUi.js"></script>
     <script src="../assets/js/openLayer.js"></script>
+    <script src="../assets/js/base.js"></script>
     <script src="../assets/js/processImage.js"></script>
+    <script src="../assets/js/imageAlgo.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/notify.js"></script>
     <link href="../assets/css/master.css" rel="stylesheet"/>
     <script type="text/javascript">
         $(function(){
+             $("#myBtn").click(function(){
+        $("#start").notify("Click Start to draw polygon on map",{ elementPosition:"left", className:'info',hideDuration: 800});
+         $("#reset").notify("Click reset on the map below for further processing",{ elementPosition:"left",className:'info',hideDuration: 800});
+          $("#process").notify("Click process to see the result", {elementPosition:"left",className:'info',hideDuration: 800});
+    });
+        $("#drawPoly").click(function(){
+       $("#myBtn").notify("Draw polygon on the map below for further processing", { elementPosition:"bottom left", className:'info'});
+  
+    });
            $("#resultRow").hide();
-            var obj = {a: "Hello", b: "World"};
-            saveText( JSON.stringify(obj), "filename.json" );
+            $.ajax({
+                type:"POST",
+                url:"../server/JsonBuilder.php",
+                data:{lat:87,lng:27,area:290},
+                success:function(data){
+                    console.log("success")
+                },error:function (er) {
+                    console.log("error")
+                }
+            })
         });
     </script>
 </head>
 <body>
-<div class="container" style="width: 90%;margin:20px auto 0;">
+    <div class="wrapper">
+<div class="wrapper-header col-md-10 col-md-offset-1">
+    <div class="header">
+        <div class="header_top">
+            <div class="logos col-md-10 col-sm-10">
 
-    <div class="row"style="border: 1px solid black">
-        <div class="col-md-8" id="openMap">
+                <div class="undp-nepal">
+                    <!-- <img class="img-responsive pull-left" src="img/nepal-small.png" alt="UNDP Nepal">
+                                        <span style="color: #ef2121;font-weight: 700;font-size: 15px;">UNDP in Nepal</span>-->
+                    <div style="width:13%;">
+                        <img src="../assets/img/GOVN.png" class="img-responsive pull-left" alt="logo" width="">
+                    </div>
+                    <div style="width:87%">
+                   <p style="margin-bottom: -9px;font-size: 12px;color: #ef2129;"><b>Government Of Nepal</b></p>
+                    <p style="font-size: 15px;color: #ef2129;"><b>Ministry Of Population and Environment</b></p>
+                       <h2 style="font-size:30px;margin-top: -4px;">Alternative Energy Promotion Center (AEPC)</h2>
+                       <p style="margin-top: -12px"><b>Making Renewable Energy Mainstream Supply in Nepal</b></p>
+                                          </div>
+                </div>
+
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-12" style="padding:5px 0;">
+                <div class="col-md-6 col-sm-6 col-xs-6" >
+                    <img class="img-responsive" src="../assets/img/UNDP.png" alt="UNDP" width="60px;">
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <img class="img-responsive" src="../assets/img/GEF.png" alt="logo" width="108px;" style="padding-top:10px;">
+                </div>
+            </div>
+        </div>
+       
+     
+
+         
+                        
+ <div class="clearfix"></div>
+
+    </div>
+
+     <hr style="border:1px solid #555">
+      <div class="col-md-12">
+        <div class="col-md-6">
+            <div class="col-md-8">
+                 <div class="triangle-l"></div>
+                <div class="rectangle">
+            <h4>RoofTop Solar PV Estimation</h4>
+        </div>
+
+        </div>
+            <div class="col-md-4">
+            <button  class="btn btn-primary" id="myBtn"><span class=" glyphicon glyphicon-info-sign" ></span>&nbsp;Instructions</button>
+            </div>
+        </div>
+              <!--   <div class="col-md-6" >
+                  
+                   <div class="col-md-8" >
+                    <input type="text" class="form-control" placeholder="Enter Location to Search">
+                </div>
+                    <div class="col-md-4" >
+                    <button class="btn btn-primary"><span class="glyphicon glyphicon-search" ></span>&nbsp;Search</button>
+                </div>
+                  
+            </div> -->
+      </div>
+
+    
+      <div class="clearfix"></div>
+     
+<div class="" style="width: 95%;margin:20px auto 0;">
+
+    <div class="row"style="border: 1px solid #006cb7">
+        <div class="col-md-10" id="openMap">
             <canvas id="destinationCanvas" class="hide"></canvas>
             <div id="basicMap"></div>
             <img id="destiImage"/>
         </div>
 
         <br>
-        <div class="col-md-4">
-            <div class="well">
-                <label for="search">Search By City</label>
+        <div class="col-md-2">
+            <!-- <div class="well"> -->
+                <!-- <label for="search">Search By City</label>
                 <input  type="text" name="search" id="searchtext" class="form-control" placeholder="search by city"><br>
-                <button  onclick="search()" name="search" id="search" class="btn btn-primary">search</button><br><hr>
+                <button  onclick="search()" name="search" id="search" class="btn btn-primary">search</button><br><hr> -->
                 <ul id="controlToggle" style="list-style: none">
                     <li>
-                        <button id="drawPoly">Start</button>
-                        <button id="resetMap">Reset</button>
-                    </li><br>
+                        <span id="start"></span>
+                        <button class="btn btn-primary" id="drawPoly"> <span class="glyphicon glyphicon-off"></span>&nbsp;Start</button> <span id="draw"></span>
+                       
+                    </li>
+                    <br>
                     <li>
-                        <button onclick="uploadImageData()" class="btn"><i class="icon-download"></i>Process</button>
+                        <span id="reset"></span>
+                     <button class="btn btn-primary" id="resetMap"><span class="glyphicon glyphicon-repeat"></span>&nbsp;Reset</button> <span class="resetMap"></span>
+                 </li>
+                    <br>
+                    <li>
+                        <span id="process"></span>
+                        <button class="btn btn-primary" onclick="uploadImageData()" class="btn"><span class="glyphicon glyphicon-refresh"></span>&nbsp;Process</button> <span class="Processbtn"></span>
                     </li>
                 </ul>
-            </div>
+            <!-- </div> -->
         </div>
     </div>
+</div>
     <br><br><br>
-    <div class="row" id="resultRow" style="border: 1px lightslategray solid;">
-        <div class="row" style="text-align: center">
+    <div  id="resultRow" style="border: 1px solid #006cb7" >
+        <br>
+         <div  style="text-align: center">
             <h1>Process Result</h1>
         </div>
         <div class="row" style="margin-left: 0">
@@ -69,28 +234,32 @@
             <div class="col-md-12">
                 <div class="table-responsive">
 
-                    <table class="table table-striped table-bordered table-hover table-condensed">
-                        <thead>
-                        <tr>
-                            <th>Total Roof Top Area(m<sup>2</sup>)</th>
-                            <th>Usable Roof Top Area(m<sup>2</sup>)</th>
-                            <th>Roof Top Usage(%)</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <input type="text" id="totalArea" readonly class="form-control">
-                            </td>
-                            <td>
-                                <input type="text" id="usageAreaIs" readonly class="form-control" value="0">
-                            </td>
-                            <td>
-                                <input type="text" id="usage" readonly class="form-control" value="0">
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                   <table class="table table-striped table-bordered table-hover table-condensed">
+                            <thead>
+                            <tr>
+                                <th>Total Roof Top Area(m<sup>2</sup>)</th>
+                                <th>Usable Roof Top Area(m<sup>2</sup>)</th>
+                                <th>Roof Top Usage(%)</th>
+                                <th>Number of Building</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <input type="text" id="totalArea" readonly class="form-control">
+                                </td>
+                                <td>
+                                    <input type="text" id="usageAreaIs" readonly class="form-control" value="0">
+                                </td>
+                                <td>
+                                    <input type="text" id="usage" readonly class="form-control" value="0">
+                                </td>
+                                <td>
+                                    <input type="text" id="totalBuildings" readonly class="form-control" value="0">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                 </div>
                 <div class="table-responsive">
                     <h2>Energy Generated Monthwise(KWH)</h2>
@@ -144,130 +313,121 @@
         </div>
     </div>
 </div>
+</div>
+ <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog" style="
+    margin-top: 115px;">
+    <div class="modal-dialog">
 
-<footer class="footer-distributed">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-body">
+           
+           <div class="instruction_primary">
+            
+            <ul style="text-align:center;list-style: none"><li><span class="instruction"></span>Click to draw polygon on a map. </li><li>
+                <span class="instruction">
+                </span>Click to reset the drawn polygon.
+            </li>
+            <li><span class="instruction"></span>Click the button after drawing polygon on the map to get the result </li>
+        </ul>
+  </div>
+    </div>
+        
+      </div>
+    </div>
+  </div> 
+</div>
+<footer>
+    </footer>
+
+<!-- <footer class="footer-distributed">
     <div class="footer-center">
         <h3><span>Roof Top Solar Estimation</span></h3>
 
         <p class="footer-company-name">RTSE &copy; 2016</p>
     </div>
 
-</footer>
-<script>
-    var drawInteraction,selectInteraction,modifyInteraction;
-    var coordinateData=[],imageData;
-    var polyXPoints = [],polyYPoints=[];
-
-    var styles = [
-
-        new ol.style.Style({
-            stroke: new ol.style.Stroke({
-                color:  'rgb(12, 231, 216)',
-                width: 1
-            })
-        }),
-        new ol.style.Style({
-            image: new ol.style.Circle({
-                radius: 2,
-                fill: new ol.style.Fill({
-                    color: 'orange'
-                })
-            })
-        })
-    ];
-
-    var map = new ol.Map({
-        layers: [
-            new ol.layer.Tile({
-                source: new ol.source.OSM({
-                    "url" : "http://tile2.opencyclemap.org/transport/{z}/{x}/{y}.png"
-                })
-            }),
-            new ol.layer.Vector({
-                source: new ol.source.Vector({
-                    url: 'data/geojson/countries.geojson',
-                    format: new ol.format.GeoJSON()
-                })
-            })
-        ],
-        target: 'basicMap',
-        controls: ol.control.defaults({
-            attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
-                collapsible: false
-            })
-        }),
-        view: new ol.View({
-            center: ol.proj.transform([85.32247, 27.68248], 'EPSG:4326', 'EPSG:900913'),
-            zoom: 18,
-            projection: 'EPSG:3857'
-        })
-
-    });
-
-    var vectorSource = new ol.source.Vector();
-    var vectorLayer = new ol.layer.Vector({
-        source:vectorSource,
-        style: styles
-    });
-    map.addLayer(vectorLayer);
+</footer> -->
 
 
-    var startDraw = document.getElementById('drawPoly');
-    var resetDraw = document.getElementById('resetMap');
-    startDraw.addEventListener('click', function(e) {
-        var first=0;
-        map.once('postcompose', function(event) {
-            var canvas = event.context.canvas;
-            imageData = canvas.toDataURL('image/png').replace('data:image/png;base64,', '');
-            var destiCanvas = document.getElementById("destinationCanvas");
-            destiCanvas.width = canvas.width;
-            destiCanvas.height = canvas.height;
-            var destiContext = destiCanvas.getContext("2d");
-            destiContext.drawImage(canvas, 0, 0);
-
-            $(".ol-unselectable").attr("id","sourceCanvas");
-            $("#sourceCanvas").addClass("hide");
-            $("#destinationCanvas").removeClass("hide");
-
-            $("#destinationCanvas").on("mousedown",function(e){
-                if(first==0){
-                    destiContext.clearRect(0, 0, canvas.width, canvas.height);
-                    destiContext.drawImage(canvas, 0, 0);
-                    first++;
-                }
-                var offset = $(this).offset();
-                var x =e.pageX - offset.left;
-                var y = e.pageY - offset.top;
-                destiContext.fillStyle = "#000000";
-                destiContext.beginPath();
-                destiContext.arc( x, y, 2, 0, 2*Math.PI);
-                destiContext.fill();
-                polyXPoints.push(Math.round(x));
-                polyYPoints.push(Math.round(y));
-                var polyLength = polyXPoints.length;
-                if(polyXPoints.length>=2){
-                    destiContext.beginPath();
-                    destiContext.moveTo(polyXPoints[polyLength-2],polyYPoints[polyLength-2]);
-                    destiContext.lineTo(polyXPoints[polyLength-1],polyYPoints[polyLength-1]);
-                    destiContext.stroke();
-                }
-            });
-
-        });
-        map.renderSync();
-    }, false);
-
-    resetDraw.addEventListener('click', function(e) {
-        $("#destinationCanvas").addClass("hide");
-        $("#sourceCanvas").removeClass("hide");
-        polyXPoints=[];
-        polyYPoints=[];
-    });
-
-    function uploadImageData(){
-        startProcess(polyXPoints,polyYPoints);
+   <script type="application/javascript">
+    loadJS();
+    function loadJS() {
+        var jsElm = document.createElement("script");
+        jsElm.type = "application/javascript";
+        jsElm.src = "../assets/js/base.js";
+        document.body.appendChild(jsElm);
     }
+	
+    (function(win, doc){
+//        'use strict';
+//        var olview = new ol.View({
+//                    center: [0, 0],
+//                    zoom: 2,
+//                    minZoom: 2,
+//                    maxZoom: 20
+//                }),
+//                baseLayer = new ol.layer.Tile({
+//                    source: new ol.source.OSM()
+//                }),
+//                map = new ol.Map({
+//                    target: doc.getElementById('basicMap'),
+//                    view: olview,
+//                    layers: [baseLayer]
+//                });
 
+        /**
+         * Popup
+         **/
+        var container = doc.getElementById('popup'),
+                content = doc.getElementById('popup-content'),
+                closer = doc.getElementById('popup-closer'),
+                overlay = new ol.Overlay({
+                    element: container,
+                    offset: [0, -40]
+                });
+
+        //Instantiate with some options and add the Control
+        var geocoder = new Geocoder('nominatim', {
+            provider: 'osm',
+            lang: 'en',
+            placeholder: 'Search for ...',
+            limit: 5,
+            debug: true,
+            autoComplete: true,
+            keepOpen: true,
+            countrycodes : 'np'
+        });
+        map.addControl(geocoder);
+
+        //Listen when an address is chosen
+        geocoder.on('addresschosen', function(evt){
+            var feature = evt.feature,
+                    coord = evt.coordinate;
+            content.innerHTML = '<p>'+ evt.address.formatted +'</p>';
+            overlay.setPosition(coord);
+        });
+
+        /**
+         * Popup
+         **/
+//        var container = doc.getElementById('popup'),
+//                content = doc.getElementById('popup-content'),
+//                closer = doc.getElementById('popup-closer'),
+//                overlay = new ol.Overlay({
+//                    element: container,
+//                    offset: [0, -40]
+//
+//
+//                });
+        closer.onclick = function () {
+            overlay.setPosition(undefined);
+            closer.blur();
+            return false;
+        };
+        map.addOverlay(overlay);
+    })(window, document);
 </script>
 
 </body>
