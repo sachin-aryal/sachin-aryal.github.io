@@ -225,11 +225,12 @@ function inside(point, vs) {
 function displayResult(area){
     $("#totalArea").val(area);
     $( "#slider-3" ).slider({
-        range:true,
+        range:"min",
+		value:0,
         min: 0,
         max: 100,
         slide: function( event, ui ) {
-            $( "#usage" ).val(ui.values[1]);
+            $( "#usage" ).val(ui.value);
             changeVals(area);
         }
     });
