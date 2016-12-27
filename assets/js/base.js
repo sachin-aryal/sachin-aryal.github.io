@@ -43,7 +43,8 @@ var map = new ol.Map({
         })
     }),
     view: new ol.View({
-        center: ol.proj.transform([85.32247, 27.68248], 'EPSG:4326', 'EPSG:900913'),
+       //center: ol.proj.transform([85.32247, 27.68248], 'EPSG:4326', 'EPSG:900913'),//default
+		 center: ol.proj.transform([85.3398418, 27.7095784], 'EPSG:4326', 'EPSG:900913'),//DEERWALK
         zoom: 18,
         projection: 'EPSG:3857'
     })
