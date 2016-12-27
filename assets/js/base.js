@@ -43,7 +43,12 @@ function codeAddress() {
           map.setView(new ol.View({
               center:  ol.proj.transform([parseFloat(lon), parseFloat(lat)],
                   'EPSG:4326', 'EPSG:900913'),
-              zoom: map.getView().getZoom()
+              maxZoom:19,
+        minZoom: 17,
+        zoom: 18,
+        projection: 'EPSG:3857'
+             //zoom: map.getView().getZoom()
+
           }));
 
       } else {
