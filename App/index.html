@@ -83,37 +83,16 @@
     <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/js/notify.js"></script>
     <link href="../assets/css/master.css" rel="stylesheet"/>
-    <script type="text/javascript">
-        $(function(){
-             $("#myBtn").click(function(){
-        $("#start").notify("Click Start to draw polygon on map",{ elementPosition:"left", className:'info',hideDuration: 800});
-         $("#reset").notify("Click reset on the map below for further processing",{ elementPosition:"left",className:'info',hideDuration: 800});
-          $("#process").notify("Click process to see the result", {elementPosition:"left",className:'info',hideDuration: 800});
-    });
-        $("#drawPoly").click(function(){
-       $("#myBtn").notify("Draw polygon on the map below for further processing", { elementPosition:"bottom left", className:'info'});
-  
-    });
-           $("#resultRow").hide();
-            $.ajax({
-                type:"POST",
-                url:"../server/JsonBuilder.php",
-                data:{lat:87,lng:27,area:290},
-                success:function(data){
-                    console.log("success")
-                },error:function (er) {
-                    console.log("error")
-                }
-            })
-        });
-    </script>
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKYjnqls1TKfoOfziQoqarZUPRo9rRDjA&libraries=places"></script>
 </head>
 <body>
     <div class="wrapper">
 <div class="wrapper-header col-md-10 col-md-offset-1">
     <div class="header">
         <div class="header_top">
-            <div class="logos col-md-10 col-sm-10">
+            <div class="logos col-md-8 col-sm-8">
+                <br>
+
 
                 <div class="undp-nepal">
                     <!-- <img class="img-responsive pull-left" src="img/nepal-small.png" alt="UNDP Nepal">
@@ -124,19 +103,19 @@
                     <div style="width:87%">
                    <p style="margin-bottom: -9px;font-size: 12px;color: #ef2129;"><b>Government Of Nepal</b></p>
                     <p style="font-size: 15px;color: #ef2129;"><b>Ministry Of Population and Environment</b></p>
-                       <h2 style="font-size:30px;margin-top: -4px;">Alternative Energy Promotion Center (AEPC)</h2>
+                       <h2 style="font-size:28px;margin-top: -4px;">Alternative Energy Promotion Center</h2>
                        <p style="margin-top: -12px"><b>Making Renewable Energy Mainstream Supply in Nepal</b></p>
                                           </div>
                 </div>
 
             </div>
-            <div class="col-md-2 col-sm-2 col-xs-12" style="padding:5px 0;">
+            <div class="col-md-4 col-sm-4 col-xs-4" style="padding:5px 0;">
                 <div class="col-md-6 col-sm-6 col-xs-6" >
-                    <img class="img-responsive" src="../assets/img/UNDP.png" alt="UNDP" width="60px;">
+                    <img class="img-responsive" src="../assets/img/undp-logo.png"  alt="UNDP" >
                 </div>
 
                 <div class="col-md-6 col-sm-6 col-xs-6">
-                    <img class="img-responsive" src="../assets/img/GEF.png" alt="logo" width="108px;" style="padding-top:10px;">
+                    <img class="img-responsive" src="../assets/img/GEF.png" alt="logo"  style="padding-top:10px;">
                 </div>
             </div>
         </div>
@@ -160,19 +139,20 @@
 
         </div>
             <div class="col-md-4">
-            <button  class="btn btn-primary" id="myBtn"><span class=" glyphicon glyphicon-info-sign" ></span>&nbsp;Instructions</button>
+            <button onclick="javascript:introJs().setOption('showProgress', true).start();" class="btn btn-primary btn-lg" id="" aria-hidden="true"><span class=" glyphicon glyphicon-info-sign" ></span>&nbsp;Instructions</button>
             </div>
         </div>
-              <!--   <div class="col-md-6" >
+                <div class="col-md-6" >
                   
                    <div class="col-md-8" >
-                    <input type="text" class="form-control" placeholder="Enter Location to Search">
+                    <!-- <input id="address" type="text" value="" placeholder="Enter your Location"> -->
+                    <input id ="address" type="text" class="form-control" placeholder="Enter Location to Search">
                 </div>
                     <div class="col-md-4" >
-                    <button class="btn btn-primary"><span class="glyphicon glyphicon-search" ></span>&nbsp;Search</button>
+                    <button onclick="codeAddress()" class="btn btn-primary"><span class="glyphicon glyphicon-search" ></span>&nbsp;Search</button>
                 </div>
                   
-            </div> -->
+            </div>
       </div>
 
     
@@ -181,7 +161,7 @@
 <div class="" style="width: 95%;margin:20px auto 0;">
 
     <div class="row"style="border: 1px solid #006cb7">
-        <div class="col-md-10" id="openMap">
+        <div data-step="1" data-position="top" data-intro="This is Open Street Map where Rooftop view of buildings are shown."  class="col-md-10" id="openMap">
             <canvas id="destinationCanvas" class="hide"></canvas>
             <div id="basicMap"></div>
             <img id="destiImage"/>
@@ -196,18 +176,18 @@
                 <ul id="controlToggle" style="list-style: none">
                     <li>
                         <span id="start"></span>
-                        <button class="btn btn-primary" id="drawPoly"> <span class="glyphicon glyphicon-off"></span>&nbsp;Start</button> <span id="draw"></span>
+                        <button data-step="2" data-position="auto" data-intro="Use this button to draw a polygon on the Open Street Map."  class="btn btn-primary" id="drawPoly"> <span class="glyphicon glyphicon-off"></span>&nbsp;Start</button> <span id="draw"></span>
                        
                     </li>
                     <br>
                     <li>
                         <span id="reset"></span>
-                     <button class="btn btn-primary" id="resetMap"><span class="glyphicon glyphicon-repeat"></span>&nbsp;Reset</button> <span class="resetMap"></span>
+                     <button  data-step="3" data-position="auto" data-intro="Use this button reset the polygon drawing process." class="btn btn-primary" id="resetMap"><span class="glyphicon glyphicon-repeat"></span>&nbsp;Reset</button> <span class="resetMap"></span>
                  </li>
                     <br>
                     <li>
                         <span id="process"></span>
-                        <button class="btn btn-primary" onclick="uploadImageData()" class="btn"><span class="glyphicon glyphicon-refresh"></span>&nbsp;Process</button> <span class="Processbtn"></span>
+                        <button data-step="4" data-position="auto" data-intro="Use this button to process the rooftop area within the polygon." class="btn btn-primary" onclick="uploadImageData()" class="btn"><span class="glyphicon glyphicon-refresh"></span>&nbsp;Process</button> <span class="Processbtn"></span>
                     </li>
                 </ul>
             <!-- </div> -->
@@ -215,7 +195,7 @@
     </div>
 </div>
     <br><br><br>
-    <div  id="resultRow" style="border: 1px solid #006cb7" >
+    <div   id="resultRow" style="border: 1px solid #006cb7" >
         <br>
          <div  style="text-align: center">
             <h1>Process Result</h1>
@@ -301,12 +281,12 @@
             </div>
         </div>
         <div class="row" style="margin: 0 auto">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <h2 style="margin-left: 35px;">Original Image</h2><br>
                 <img id="originalImage" width="70%"/>
             </div>
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
+          
+            <div class="col-md-6">
                 <h1 style="margin-left: 35px;">Processed Image</h1><br>
                 <img id="processedImage" width="70%"/>
             </div>
@@ -315,12 +295,12 @@
 </div>
 </div>
  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog" style="
+ <!--  <div class="modal fade" id="myModal" role="dialog" style="
     margin-top: 115px;">
-    <div class="modal-dialog">
+    <div class="modal-dialog"> -->
 
       <!-- Modal content-->
-      <div class="modal-content">
+     <!--  <div class="modal-content">
         <div class="modal-body">
            
            <div class="instruction_primary">
@@ -334,12 +314,11 @@
   </div>
     </div>
         
-      </div>
+      </div> -->
     </div>
   </div> 
 </div>
-<footer>
-    </footer>
+
 
 <!-- <footer class="footer-distributed">
     <div class="footer-center">
@@ -359,76 +338,10 @@
         jsElm.src = "../assets/js/base.js";
         document.body.appendChild(jsElm);
     }
+
 	
-    (function(win, doc){
-//        'use strict';
-//        var olview = new ol.View({
-//                    center: [0, 0],
-//                    zoom: 2,
-//                    minZoom: 2,
-//                    maxZoom: 20
-//                }),
-//                baseLayer = new ol.layer.Tile({
-//                    source: new ol.source.OSM()
-//                }),
-//                map = new ol.Map({
-//                    target: doc.getElementById('basicMap'),
-//                    view: olview,
-//                    layers: [baseLayer]
-//                });
-
-        /**
-         * Popup
-         **/
-        var container = doc.getElementById('popup'),
-                content = doc.getElementById('popup-content'),
-                closer = doc.getElementById('popup-closer'),
-                overlay = new ol.Overlay({
-                    element: container,
-                    offset: [0, -40]
-                });
-
-        //Instantiate with some options and add the Control
-        var geocoder = new Geocoder('nominatim', {
-            provider: 'osm',
-            lang: 'en',
-            placeholder: 'Search for ...',
-            limit: 5,
-            debug: true,
-            autoComplete: true,
-            keepOpen: true,
-            countrycodes : 'np'
-        });
-        map.addControl(geocoder);
-
-        //Listen when an address is chosen
-        geocoder.on('addresschosen', function(evt){
-            var feature = evt.feature,
-                    coord = evt.coordinate;
-            content.innerHTML = '<p>'+ evt.address.formatted +'</p>';
-            overlay.setPosition(coord);
-        });
-
-        /**
-         * Popup
-         **/
-//        var container = doc.getElementById('popup'),
-//                content = doc.getElementById('popup-content'),
-//                closer = doc.getElementById('popup-closer'),
-//                overlay = new ol.Overlay({
-//                    element: container,
-//                    offset: [0, -40]
-//
-//
-//                });
-        closer.onclick = function () {
-            overlay.setPosition(undefined);
-            closer.blur();
-            return false;
-        };
-        map.addOverlay(overlay);
-    })(window, document);
-</script>
+   </script>
+   <script src="../assets/js/intro.js"></script>
 
 </body>
 </html>
