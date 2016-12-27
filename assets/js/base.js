@@ -52,7 +52,7 @@ function codeAddress() {
           }));
 
       } else {
-        alert("The searched location was not found.");
+        $.notify("Opps!Sorry, this place is not found", "info");
       }
     });
 }
