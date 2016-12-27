@@ -85,7 +85,7 @@
     <link href="../assets/css/master.css" rel="stylesheet"/>
    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKYjnqls1TKfoOfziQoqarZUPRo9rRDjA&libraries=places"></script>
 </head>
-<body>
+<body onload="initialize()">
     <div class="wrapper">
 <div class="wrapper-header col-md-10 col-md-offset-1">
     <div class="header">
@@ -149,7 +149,7 @@
                     <input id ="address" type="text" class="form-control" placeholder="Enter Location to Search">
                 </div>
                     <div class="col-md-4" >
-                    <button onclick="codeAddress()" class="btn btn-primary"><span class="glyphicon glyphicon-search" ></span>&nbsp;Search</button>
+                    <button ata-step="2" data-position="auto" data-intro="Use this button to search the location of your choice within the valley."onclick="codeAddress()" class="btn btn-primary"><span class="glyphicon glyphicon-search" ></span>&nbsp;Search</button>
                 </div>
                   
             </div>
@@ -161,7 +161,7 @@
 <div class="" style="width: 95%;margin:20px auto 0;">
 
     <div class="row"style="border: 1px solid #006cb7">
-        <div data-step="1" data-position="top" data-intro="This is Open Street Map where Rooftop view of buildings are shown."  class="col-md-10" id="openMap">
+        <div data-step="1" data-position="auto" data-intro="This is Open Street Map where Rooftop view of buildings are shown."  class="col-md-10" id="openMap">
             <canvas id="destinationCanvas" class="hide"></canvas>
             <div id="basicMap"></div>
             <img id="destiImage"/>
@@ -169,25 +169,22 @@
 
         <br>
         <div class="col-md-2">
-            <!-- <div class="well"> -->
-                <!-- <label for="search">Search By City</label>
-                <input  type="text" name="search" id="searchtext" class="form-control" placeholder="search by city"><br>
-                <button  onclick="search()" name="search" id="search" class="btn btn-primary">search</button><br><hr> -->
+          
                 <ul id="controlToggle" style="list-style: none">
                     <li>
                         <span id="start"></span>
-                        <button data-step="2" data-position="auto" data-intro="Use this button to draw a polygon on the Open Street Map."  class="btn btn-primary" id="drawPoly"> <span class="glyphicon glyphicon-off"></span>&nbsp;Start</button> <span id="draw"></span>
+                        <button data-step="3" data-position="auto" data-intro="Use this button to draw a polygon on the Open Street Map."  class="btn btn-primary" id="drawPoly"> <span class="glyphicon glyphicon-off"></span>&nbsp;Start</button> <span id="draw"></span>
                        
                     </li>
                     <br>
                     <li>
                         <span id="reset"></span>
-                     <button  data-step="3" data-position="auto" data-intro="Use this button reset the polygon drawing process." class="btn btn-primary" id="resetMap"><span class="glyphicon glyphicon-repeat"></span>&nbsp;Reset</button> <span class="resetMap"></span>
+                     <button  data-step="4" data-position="auto" data-intro="Use this button reset the polygon drawing process." class="btn btn-primary" id="resetMap"><span class="glyphicon glyphicon-repeat"></span>&nbsp;Reset</button> <span class="resetMap"></span>
                  </li>
                     <br>
                     <li>
                         <span id="process"></span>
-                        <button data-step="4" data-position="auto" data-intro="Use this button to process the rooftop area within the polygon." class="btn btn-primary" onclick="uploadImageData()" class="btn"><span class="glyphicon glyphicon-refresh"></span>&nbsp;Process</button> <span class="Processbtn"></span>
+                        <button data-step="5" data-position="auto" data-intro="Use this button to process the rooftop area within the polygon." class="btn btn-primary" onclick="uploadImageData()" class="btn"><span class="glyphicon glyphicon-refresh"></span>&nbsp;Process</button> <span class="Processbtn"></span>
                     </li>
                 </ul>
             <!-- </div> -->
