@@ -41,8 +41,8 @@ function codeAddress() {
           console.log(address + " " + lat + " " + lon) ;
 
           map.setView(new ol.View({
-              center:  ol.proj.transform([parseFloat(lon), parseFloat(lat)],
-                  'EPSG:4326', 'EPSG:900913'),
+			  	 center: ol.proj.transform([85.3398418, 27.7095784], 'EPSG:4326', 'EPSG:900913'),//DEERWALK
+             // center:  ol.proj.transform([parseFloat(lon), parseFloat(lat)], 'EPSG:4326', 'EPSG:900913'),
               maxZoom:19,
         minZoom: 17,
         zoom: 18,
