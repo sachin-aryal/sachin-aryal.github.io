@@ -1384,6 +1384,8 @@ video#bgvideo {
     padding: 0px;
     text-align: left;
     position: relative;
+    height:290px !important;
+    width: 290px !important;
 }
 
 .grid figure {
@@ -2791,8 +2793,10 @@ input[type=text]::-ms-clear {
     }
 }
 .portfolio-image {
-    width:  350px !important;
-    height: 300px !important;
-    background-position: 50% 50%;
-    background-repeat:   no-repeat;
+    width:100%;
+    height:100%;
+    /*width:  350px !important;*/
+    /*height: 300px !important;*/
+    /*background-position: 50% 50%;*/
+    /*background-repeat:   no-repeat;*/
 }
