@@ -121,7 +121,13 @@ $( document ).ready(function() {
     $("#owl-moments").owlCarousel({
         items : 4,
         pagination : false,
-        autoPlay : true,
+        autoPlay : false,
+        lazyLoad : true
+    });
+    $("#owl-moments1").owlCarousel({
+        items : 4,
+        pagination : false,
+        autoPlay : false,
         lazyLoad : true
     });
 
