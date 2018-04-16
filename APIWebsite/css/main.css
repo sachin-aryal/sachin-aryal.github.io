@@ -337,7 +337,7 @@ ul li {
     margin-top: 180px;
     font-size: 34px;
     line-height: 49px;
-    color: #000;
+    color: #ffffff;
     font-weight: 600;
 }
 #main-slider .slider-inner h2 > span {
@@ -395,10 +395,13 @@ ul li {
     background: rgb(255, 90, 39);
 }
 .carousel-content {
-    margin-top: 30%;
+    margin-top: 35%;
     width: 44%;
 }
-.carousel-content p{color: #000;}
+.carousel-content p{
+    color: #ffffff;
+}
+
 .thumbnail{
     margin-top:25px;
 }
