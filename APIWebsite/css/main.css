@@ -30,7 +30,7 @@ h4 {
 }
 h5 {
     font-size: 14px;
-    color: #2d3033;
+    color: #ffffff;
     text-transform: uppercase;
     font-weight: 700;
 }
@@ -79,7 +79,7 @@ body {
     font-family: "Open Sans", Arial, sans-serif;
     font-weight: 400;
     color: #6c7279;
-    background: #f2f3f8;
+    background: #e0e0e0;
 }
 ul, ol {
     margin: 0;
@@ -486,6 +486,8 @@ Common Styles
     /*padding-top: 100px;*/
 }
 .services {
+    font-family: "proxima-nova", sans-serif;
+    color: #ffffff;
     /*margin-bottom: 50px;*/
 }
 .services-content {
@@ -497,7 +499,7 @@ Common Styles
     position: relative;
 }
 .services-content:before {
-    border-top: 1px dashed #ffffff;
+    /*border-top: 1px dashed #ffffff;*/
     /* width: 47%; */
     content: '';
     position: absolute;
@@ -516,8 +518,8 @@ Common Styles
     height: 64px;
 }
 .services h3{
-    color: #ff5a27;
-    margin-top: 0;
+    color: #ffffff;
+    margin-top: 10px;
     font-weight: 600;
     font-size: 32px;
 }
@@ -626,7 +628,7 @@ h5 {
     font-weight: 500;
     margin: 0.3em 0;
     text-transform: capitalize;
-    color: #000;
+    color: #ffffff;
     margin-bottom: 10px;
 }
 ul.list-default {
@@ -988,4 +990,7 @@ hr{
 }
 .fa-angle-left, .fa-angle-right{
     margin-top: 17px;
+}
+.container{
+    width: 1235px;
 }
