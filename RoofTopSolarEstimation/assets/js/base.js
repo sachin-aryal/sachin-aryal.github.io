@@ -1,33 +1,36 @@
 /**
  * Created by iam on 12/6/16.
  */
+var geocoder;
 
-var geocoder,autocomplete;
 var lat = 85.32247;
 var lon = 27.68248;
-function initialize() {
+
+
+var autocomplete;
+
+function initAutocomplete() {
     var options = {
-  componentRestrictions: {country: 'np'}
-};
-    autocomplete = new google.maps.places.Autocomplete(document.getElementById('address'),options);
-    google.maps.event.addListener(autocomplete, 'place_changed', function() {
-      fillInAddress();
-    });
-  }
-  function fillInAddress() {
+        // use types for selecting support type for locations
+        //types: ['(regions)'] ,
+        componentRestrictions: {country: "np"}
+    };
+    var input = document.getElementById('address');
+    autocomplete = new google.maps.places.Autocomplete(input, options);
+    autocomplete.addListener('place_changed', notFoundCondition);
+}
+
+
+function  notFoundCondition() {
     var place = autocomplete.getPlace();
-    for (var component in component_form) {
-      document.getElementById(component).value = "";
-      document.getElementById(component).disabled = false;
+    if (!place.geometry) {
+        // User entered the name of a Place that was not suggested and
+        // pressed the Enter key, or the Place Details request failed.
+        window.alert("No details available for input: '" + place.name + "'");
+        return;
     }
-    for (var j = 0; j < place.address_components.length; j++) {
-      var att = place.address_components[j].types[0];
-      if (component_form[att]) {
-        var val = place.address_components[j][component_form[att]];
-        document.getElementById(att).value = val;
-      }
-    }
-  }
+}
+
 function codeAddress() {
    geocoder = new google.maps.Geocoder();
     var address = document.getElementById("address").value;
@@ -41,18 +44,19 @@ function codeAddress() {
           console.log(address + " " + lat + " " + lon) ;
 
           map.setView(new ol.View({
+              maxZoom:19,
+              minZoom: 17,
+              projection: 'EPSG:3857',
               center:  ol.proj.transform([parseFloat(lon), parseFloat(lat)],
                   'EPSG:4326', 'EPSG:900913'),
-              maxZoom:19,
-        minZoom: 17,
-        zoom: 18,
-        projection: 'EPSG:3857'
-             //zoom: map.getView().getZoom()
-
+              zoom: map.getView().getZoom()
           }));
 
+          var zoom = map.getView().getZoom();
+          console.log(zoom);
+
       } else {
-        $.notify("Opps!Sorry, this place is not found", "info");
+        alert("The searched location was not found.");
       }
     });
 }
@@ -111,8 +115,10 @@ map.addLayer(vectorLayer);
 
 var startDraw = document.getElementById('drawPoly');
 var resetDraw = document.getElementById('resetMap');
+
+
 startDraw.addEventListener('click', function(e) {
-    $("#processButton").prop('disabled', false);
+    
     var first=0;
     map.once('postcompose', function(event) {
         var canvas = event.context.canvas;
@@ -120,7 +126,8 @@ startDraw.addEventListener('click', function(e) {
         destiCanvas.width = canvas.width;
         destiCanvas.height = canvas.height;
         var destiContext = destiCanvas.getContext("2d");
-        destiContext.drawImage(canvas, 0, 0);
+        // destiContext.drawImage(canvas, 0, 0);
+        destiContext.drawImage(canvas, 0, 0, 958.328, canvas.height * (958.328/canvas.width));
 
         $(".ol-unselectable").attr("id","sourceCanvas");
         $("#sourceCanvas").addClass("hide");
@@ -129,7 +136,7 @@ startDraw.addEventListener('click', function(e) {
         $("#destinationCanvas").on("mousedown",function(e){
             if(first==0){
                 destiContext.clearRect(0, 0, canvas.width, canvas.height);
-                destiContext.drawImage(canvas, 0, 0);
+                destiContext.drawImage(canvas, 0, 0, 958.328, canvas.height * (958.328/canvas.width));
                 first++;
             }
             var offset = $(this).offset();
@@ -160,14 +167,19 @@ resetDraw.addEventListener('click', function(e) {
     $("#sourceCanvas").removeClass("hide");
     polyXPoints=[];
     polyYPoints=[];
+
     $("#processButton").prop('disabled', true);
 });
 
 
+
+
 function uploadImageData(){
+
     if(polyXPoints.length == 0 && polyYPoints == 0){
-        initializeInitial()
-    }
+                initializeInitial()
+            }
+
     startProcess(polyXPoints,polyYPoints);
     disposeAllVariable();
     polyXPoints = [];
@@ -183,9 +195,10 @@ function initializeInitial(){
     polyYPoints = [0,0,cHeight,cHeight];
 }
 
+
 $("#myBtn").click(function(){
-    $("#myModal").modal();
-});
+        $("#myModal").modal();
+    });
 $("#resultRow").hide();
 $("#processButton").prop('disabled', true);
 
@@ -196,3 +209,18 @@ function startTour() {
     tour.setOption('positionPrecedence', ['left', 'right', 'bottom', 'top'])
     tour.start()
 }
+
+//clear search input
+$('.has-clear input[type="text"]').on('input propertychange', function() {
+    var $this = $(this);
+    var visible = Boolean($this.val());
+    $this.siblings('.form-control-clear').toggleClass('hidden', !visible);
+}).trigger('propertychange');
+
+$('.form-control-clear').click(function() {
+    $(this).siblings('input[type="text"]').val('')
+        .trigger('propertychange').focus();
+});
+
+
+

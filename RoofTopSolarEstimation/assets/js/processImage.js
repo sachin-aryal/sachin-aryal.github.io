@@ -2,7 +2,6 @@
  * Created by sachin on 11/8/2016.
  */
 
-var pixelToMeter = 0.3679;
 var usedLabel = [],polygonPoints = [];
 var parentChild = {},matrix = {};
 
@@ -122,11 +121,28 @@ function getBuildingCount(canvas) {
     });
 
     $("#resultRow").show();
+
+    console.log(pCount);
+
+
+    var zoom = map.getView().getZoom();
+    console.log('zooom level - ' + zoom);
+
+    if(zoom === 18){
+        var pixelToMeter = 0.36799;
+    }else if(zoom === 17){
+        var pixelToMeter = 1.612226848
+            ;
+    }else if(zoom === 19){
+        var pixelToMeter = 0.085601;
+    }
+
     displayResult(pCount*pixelToMeter);
     canvasContext.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
     $("#processedImage").attr("src", canvas.toDataURL("image/png"));
     return Object.keys(parentChild).length;
 }
+
 
 function itemExist(item,list){
     if(list===undefined){
@@ -225,11 +241,11 @@ function inside(point, vs) {
 function displayResult(area){
     $("#totalArea").val(area);
     $( "#slider-3" ).slider({
-        range:"min",
-		value:0,
+        range:"min",value:0,
         min: 0,
         max: 100,
         slide: function( event, ui ) {
+            // $( "#usage" ).val(ui.values[1]);
             $( "#usage" ).val(ui.value);
             changeVals(area);
         }
