@@ -1,0 +1,69 @@
+#schema-code{
+    height: 670px;
+    width: 415px;
+    overflow: scroll;
+    white-space: nowrap;
+    padding: 20px;
+    background-color: #273042;
+    border: 1px solid #1b1f24;
+    color: #9ccc65;
+}
+.code-div{
+    min-height: 10px;
+    max-height: 600px;
+    overflow: scroll;
+}
+.code-div-parent{
+    max-height: 700px;
+    background-color: #fff;
+    border-left: 5px solid #eee;
+}
+.container-custom{
+    height: 700px;
+    border: 1px solid lightgray;
+}
+.inline-form{
+    padding: 10px;
+}
+.panel-heading{
+    border-bottom: 1px solid lightgray
+}
+.field-div{
+    min-height: 10px;
+    max-height: 640px;
+    overflow-y: scroll;
+}
+
+.key{
+    color: black;
+}
+.value{
+    color: red;
+}
+body{
+    background-color: #eee;
+}
+#search-div{
+    background-color: white;
+    color: black;
+}
+#field-list{
+    background-color: #fff;
+}
+.container{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.my-tool-tip {
+    display: inline-block;
+    float: right;
+    background-color: #262f42;
+    color: white;
+}
+
+.field-button{
+    float: right;
+    display: inline-block;
+    margin-right: 5px;
+}

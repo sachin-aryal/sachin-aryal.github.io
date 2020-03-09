@@ -1,0 +1,26 @@
+<script type="application/ld+json">
+{
+"@context": "http://www.schema.org",
+"@type": "Dentist",
+"pricerange":"$1000-$3000",
+"image": "https://familybraces.ca/calgary-orthodontist-braces-invisalign/calgary-orthodontist/",
+"address": {
+"@type": "PostalAddress",
+"addressLocality": "Calgary",
+"addressRegion": "AB",
+"postalCode":"T2Y 3W6",
+"streetAddress": "303 Shawville Blvd SE #500"
+},
+"description":"Family Braces SW Calgary orthodontists provide affordable braces and Invisalign at simple, transparent prices. No referrals needed. Family Braces SW is located in the Shawnessy Shopping Center, next to the Shawnessy LRT Station in SW Calgary. Easy access via Macleod Trail & Stoney Trail makes this the ideal location to anyone looking for an orthodontist in SW Calgary.",
+"name": "Family Braces SW | Orthodontist Calgary",
+"telephone": "+1 403-234-6007",
+"geo": {
+"@type": "GeoCoordinates",
+"latitude": "50.900140",
+"longitude": "-114.065440"
+},
+"sameAs" : [ "https://www.facebook.com/familybracescalgary/",
+"https://twitter.com/family_braces",
+"https://plus.google.com/+FamilyBraces"]
+}
+</script>
