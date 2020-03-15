@@ -10,6 +10,7 @@
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/custom.js"></script>
+    <link rel = "stylesheet" href = "http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
     <script type="text/javascript">
         $(function () {
             writeResult();
@@ -18,6 +19,9 @@
                 change: function(){ writeResult(); },
                 click: function(){ writeResult(); }
             }, ".code-fields");
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
         })
     </script>
 </head>
@@ -40,7 +44,11 @@
         <div id="search-div" class="col-7">
             <div class="panel panel-default">
                 <div class="panel-heading" style="padding: 10px">
-                    Search Place
+                    <div class="parent">
+                        <span class="main-header">Search Place</span>
+                        <span class="step-header">Enter Name of Dental Practice</span>
+                        <span class="right">Left</span>
+                    </div>
                 </div>
                 <div class="panel-body]]]" style="padding: 20px">
                     <div class="form-group">
@@ -73,44 +81,80 @@
         <div class="panel panel-default col-7" id="field-list">
             <div class="panel-heading" style="padding: 10px">
                 <h5 style="display: inline-block">Fields</h5>
+                <span style="margin-left: 25%" class="step-header">Verify/Add Details</span>
                 <button onclick="clearAllData()" type="button" class="btn btn-sm btn-danger field-button">Reset</button>
-                <button data-toggle="modal" data-target="#addNewFieldModal" class="btn btn-sm btn-primary field-button">Add New Field</button>
+                <button data-toggle="modal" data-target="#addNewFieldModal" class="btn btn-sm field-button order-custom-schema">Order Custom Schema</button>
             </div>
             <div class="panel-body field-div" style="padding: 20px">
                 <div class="row">
                     <div class="form-group col-6">
                         <label for="type">Type</label>
-                        <input name="type" id="type" class="form-control code-fields"/>
+                        <div class="input-group">
+                            <input name="type" value="Dentist" id="type" class="form-control code-fields left-border-none" readonly="readonly"/>
+                            <span class="input-group-addon transparent" data-toggle="tooltip" title="Type of Entity">
+                                <i class='fa fa-question-circle' aria-hidden='true'></i>
+                            </span>
+                        </div>
                     </div>
                     <div class="form-group col-6">
                         <label for="name">Name</label>
-                        <input name="name" id="name" class="form-control code-fields"/>
+                        <div class="input-group">
+                            <input name="name" id="name" class="form-control code-fields left-border-none"/>
+                            <span class="input-group-addon transparent" data-toggle="tooltip" title="Name of your dental entity">
+                                <i class='fa fa-question-circle' aria-hidden='true'></i>
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-12">
                         <label for="description">Description</label>
-                        <textarea name="description" rows="5" id="description" class="form-control code-fields"></textarea>
+                        <div class="input-group">
+                            <textarea name="description" placeholder="Describe your business" rows="5" id="description" class="form-control code-fields left-border-none"></textarea>
+                            <span class="input-group-addon transparent" data-toggle="tooltip" title="Describe your business">
+                                <i class='fa fa-question-circle' aria-hidden='true'></i>
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-6">
                         <label for="url">URL</label>
-                        <input name="url" id="url" class="form-control code-fields"/>
+                        <div class="input-group">
+                            <input name="url" id="url" class="form-control code-fields left-border-none"/>
+                            <span class="input-group-addon transparent" data-toggle="tooltip" title="Your dental website">
+                                <i class='fa fa-question-circle' aria-hidden='true'></i>
+                            </span>
+                        </div>
                     </div>
                     <div class="form-group col-6">
                         <label for="pricerange">Price Range</label>
-                        <input name="pricerange" id="pricerange" class="form-control  code-fields"/>
+                        <div class="input-group">
+                            <input name="pricerange" id="pricerange" class="form-control code-fields left-border-none"/>
+                            <span class="input-group-addon transparent" data-toggle="tooltip" title="For example: $$">
+                                <i class='fa fa-question-circle' aria-hidden='true'></i>
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-6">
                         <label for="telephone">Telephone</label>
-                        <input name="telephone" id="telephone" class="form-control code-fields"/>
+                        <div class="input-group">
+                            <input name="telephone" id="telephone" class="form-control code-fields left-border-none"/>
+                            <span class="input-group-addon transparent" data-toggle="tooltip" title="Business telephone">
+                                <i class='fa fa-question-circle' aria-hidden='true'></i>
+                            </span>
+                        </div>
                     </div>
                     <div class="form-group col-6">
                         <label for="image">Image</label>
-                        <input name="image" id="image" class="form-control code-fields"/>
+                        <div class="input-group">
+                            <input name="image" id="image" class="form-control code-fields left-border-none"/>
+                            <span class="input-group-addon transparent" data-toggle="tooltip" title="Logo of business or any other relevant image to entity">
+                                <i class='fa fa-question-circle' aria-hidden='true'></i>
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="panel panel-default">
@@ -118,22 +162,22 @@
                     <div class="panel-body" style="padding: 20px">
                         <div class="row">
                             <div class="form-group col-6">
-                                <label for="addressLocality">Address Locality</label>
-                                <input name="addressLocality" id="addressLocality" class="form-control code-fields"/>
+                                <label for="streetAddress">Street Address</label>
+                                <input name="streetAddress" id="streetAddress" class="form-control code-fields"/>
                             </div>
                             <div class="form-group col-6">
-                                <label for="addressRegion">Address Region</label>
-                                <input name="addressRegion" id="addressRegion" class="form-control code-fields"/>
+                                <label for="addressLocality">City</label>
+                                <input name="addressLocality" id="addressLocality" class="form-control code-fields"/>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-6">
-                                <label for="postalCode">Postal Code</label>
-                                <input name="postalCode" id="postalCode" class="form-control code-fields"/>
+                                <label for="addressRegion">State</label>
+                                <input name="addressRegion" id="addressRegion" class="form-control code-fields"/>
                             </div>
                             <div class="form-group col-6">
-                                <label for="streetAddress">Street Address</label>
-                                <input name="streetAddress" id="streetAddress" class="form-control code-fields"/>
+                                <label for="postalCode">Postal Code</label>
+                                <input name="postalCode" id="postalCode" class="form-control code-fields"/>
                             </div>
                         </div>
                     </div>
@@ -155,15 +199,21 @@
                 </div>
                 <div class="form-group">
                     <label for="openingHours">Opening Hours</label>
-                    <textarea placeholder="Enter multiple days in different lines                                                                  Monday: 9:00 AM – 5:30 PM
+                    <textarea placeholder="Enter each days in new line
+
+Example
+Monday: 9:00 AM – 5:30 PM
 Tuesday: 9:00 AM – 5:30 PM"
                               name="openingHours" id="openingHours" rows="5" class="form-control code-fields"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="sameAs">Same As</label>
-                    <textarea placeholder="Enter multiple urls in different lines
-https://www.facebook.com/familybracescalgary/
-https://twitter.com/family_braces" name="sameAs" id="sameAs" rows="5" class="form-control code-fields"></textarea>
+                    <textarea placeholder="Enter each URL into a new line.
+
+Example:
+https://www.facebook.com/dental-page
+https://twitter.com/your-local-dentist
+" name="sameAs" id="sameAs" rows="5" class="form-control code-fields"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="hasMap">Google MAP URL</label>
@@ -175,6 +225,7 @@ https://twitter.com/family_braces" name="sameAs" id="sameAs" rows="5" class="for
             <div class="panel panel-default">
                 <div class="panel-heading" style="padding: 10px">
                     <h5 style="display: inline-block">Code</h5>
+                    <span style="margin-left: 25%" class="step-header">Copy Result</span>
                     <button data-toggle="tooltip" data-placement="right" title="Copy to Clipboard" class="btn btn-sm my-tool-tip" onclick="copyToClipBoard()">Copy Result</button>
                 </div>
                 <div class="panel-body" style="padding: 15px">
@@ -214,78 +265,6 @@ https://twitter.com/family_braces" name="sameAs" id="sameAs" rows="5" class="for
         // When the user selects an address from the drop-down, populate the
         // address fields in the form.
         autocomplete.addListener('place_changed', fillInAddress);
-    }
-
-    function writeToField(id, value) {
-        if(value && value !== ""){
-            if($("#"+id)){
-                try{
-                    $("#"+id).val(value.replace(/undefined/g,""));
-                }catch (e) {
-                    $("#"+id).val(value);
-                }
-            }
-        }
-    }
-
-    function fillInAddress() {
-        // Get the place details from the autocomplete object.
-        var place = autocomplete.getPlace();
-        try{
-            writeToField("name", place.name);
-            // Get each component of the address from the place details,
-            // and then fill-in the corresponding field on the form.
-            let addressData = {};
-            for (var i = 0; i < place.address_components.length; i++) {
-                var addressType = place.address_components[i].types[0];
-                if (componentForm[addressType]) {
-                    var val = place.address_components[i][componentForm[addressType]];
-                    addressData[addressType] = val;
-                }
-            }
-            writeToField("addressLocality",  addressData["locality"]);
-            writeToField("addressRegion",  addressData["administrative_area_level_1"]);
-            writeToField("postalCode",  addressData["postal_code"]);
-            writeToField("streetAddress",  addressData["street_number"] +" "+ addressData["route"]+ " "+addressData["subpremise"]);
-            writeToField("type",  place.types[0]);
-            writeToField("telephone",  place.international_phone_number);
-            writeToField("url",  place.website);
-            let photos = place.photos;
-            if(photos){
-                writeToField("image",  photos[0].getUrl());
-            }
-            writeToField("latitude",  place.geometry.location.lat());
-            writeToField("longitude",  place.geometry.location.lng());
-            writeToField("hasMap",  place.url);
-            let openingHours = place.opening_hours;
-            if(openingHours){
-                openingHours = openingHours.weekday_text;
-                let openingHoursText = openingHours.filter(function(el) {
-                    return el.indexOf("Closed") === -1;
-                }).join('\n');
-                writeToField("openingHours",  openingHoursText);
-            }
-        }catch (e) {
-
-        }
-        $("#name").click();
-
-    }
-
-    // Bias the autocomplete object to the user's geographical location,
-    // as supplied by the browser's 'navigator.geolocation' object.
-    function geolocate() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var geolocation = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                };
-                var circle = new google.maps.Circle(
-                    {center: geolocation, radius: position.coords.accuracy});
-                autocomplete.setBounds(circle.getBounds());
-            });
-        }
     }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWTXjSWGG0eHUsTv5QYQbKGeDtqqlblv4&v=3.exp&sensor=false&libraries=places&callback=initAutocomplete"

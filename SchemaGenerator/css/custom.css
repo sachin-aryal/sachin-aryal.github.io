@@ -67,3 +67,30 @@ body{
     display: inline-block;
     margin-right: 5px;
 }
+
+.order-custom-schema{
+    color: #fff;
+    background-color: orange;
+    border-color: orange;
+}
+
+.fa{
+    position: absolute;
+    top: 40%;
+    margin-left: 5px;
+}
+.step-header{
+    color: orange;
+}
+.main-header{
+    vertical-align: middle;
+}
+.parent {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+.right {
+    opacity: 0;
+}

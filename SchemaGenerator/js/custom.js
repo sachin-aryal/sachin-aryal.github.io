@@ -128,7 +128,7 @@ function writeResult(){
 function buildCustomFieldsCode(buildTA) {
     $.each($(".code-field-custom"), function () {
         if($(this).val() !== "")
-        buildTA += "\n  \""+$(this).attr('name')+"\": \""+$(this).val()+"\",";
+            buildTA += "\n  \""+$(this).attr('name')+"\": \""+$(this).val()+"\",";
     });
     return buildTA;
 }
@@ -190,3 +190,74 @@ $(function () {
         toolTip.tooltip('hide');
     });
 });
+
+function writeToField(id, value) {
+    if(value && value !== ""){
+        if($("#"+id)){
+            try{
+                $("#"+id).val(value.replace(/undefined/g,""));
+            }catch (e) {
+                $("#"+id).val(value);
+            }
+        }
+    }
+}
+
+function fillInAddress() {
+    // Get the place details from the autocomplete object.
+    var place = autocomplete.getPlace();
+    try{
+        writeToField("name", place.name);
+        // Get each component of the address from the place details,
+        // and then fill-in the corresponding field on the form.
+        let addressData = {};
+        for (var i = 0; i < place.address_components.length; i++) {
+            var addressType = place.address_components[i].types[0];
+            if (componentForm[addressType]) {
+                var val = place.address_components[i][componentForm[addressType]];
+                addressData[addressType] = val;
+            }
+        }
+        writeToField("addressLocality",  addressData["locality"]);
+        writeToField("addressRegion",  addressData["administrative_area_level_1"]);
+        writeToField("postalCode",  addressData["postal_code"]);
+        writeToField("streetAddress",  addressData["street_number"] +" "+ addressData["route"]+ " "+addressData["subpremise"]);
+        writeToField("telephone",  place.international_phone_number);
+        writeToField("url",  place.website);
+        let photos = place.photos;
+        if(photos){
+            writeToField("image",  photos[0].getUrl());
+        }
+        writeToField("latitude",  place.geometry.location.lat());
+        writeToField("longitude",  place.geometry.location.lng());
+        writeToField("hasMap",  place.url);
+        let openingHours = place.opening_hours;
+        if(openingHours){
+            openingHours = openingHours.weekday_text;
+            let openingHoursText = openingHours.filter(function(el) {
+                return el.indexOf("Closed") === -1;
+            }).join('\n');
+            writeToField("openingHours",  openingHoursText);
+        }
+    }catch (e) {
+
+    }
+    $("#name").click();
+
+}
+
+// Bias the autocomplete object to the user's geographical location,
+// as supplied by the browser's 'navigator.geolocation' object.
+function geolocate() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle(
+                {center: geolocation, radius: position.coords.accuracy});
+            autocomplete.setBounds(circle.getBounds());
+        });
+    }
+}
