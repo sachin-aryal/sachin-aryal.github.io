@@ -224,10 +224,10 @@ function fillInAddress() {
         writeToField("streetAddress",  addressData["street_number"] +" "+ addressData["route"]+ " "+addressData["subpremise"]);
         writeToField("telephone",  place.international_phone_number);
         writeToField("url",  place.website);
-        let photos = place.photos;
-        if(photos){
-            writeToField("image",  photos[0].getUrl());
-        }
+        // let photos = place.photos;
+        // if(photos){
+        //     writeToField("image",  photos[0].getUrl());
+        // }
         writeToField("latitude",  place.geometry.location.lat());
         writeToField("longitude",  place.geometry.location.lng());
         writeToField("hasMap",  place.url);
