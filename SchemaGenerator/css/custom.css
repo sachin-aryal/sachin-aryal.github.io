@@ -94,3 +94,17 @@ body{
 .right {
     opacity: 0;
 }
+
+.btn-circle.btn-sm {
+    width: 25px;
+    height: 25px;
+    padding: 4px 0px;
+    border-radius: 15px;
+    font-size: 12px;
+    text-align: center;
+    background-color: red;
+    color: white;
+    margin-top: -7px;
+    margin-right: 5px;
+    cursor: default !important;
+}
