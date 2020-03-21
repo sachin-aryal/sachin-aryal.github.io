@@ -219,12 +219,14 @@ https://twitter.com/your-local-dentist
                         <button type="button" class="btn btn-circle btn-sm">3</button>
                         Copy Result
                     </h6>
+                    <button id="validate-button" data-toggle="tooltip" data-placement="right" title="Test with Google Structure Data Testing Tool" class="btn btn-sm" onclick="submitGoogleForm()">
+                        Validate</button>
                     <button data-toggle="tooltip" data-placement="right" title="Copy to Clipboard" class="btn btn-sm my-tool-tip" onclick="copyToClipBoard()">Copy Result</button>
                 </div>
                 <div class="panel-body" style="padding: 15px">
-                    <textarea class="code-div" id="schema-code">
-
-                    </textarea>
+                    <form id="to-google-validation" method="post" target="_blank" action="https://search.google.com/structured-data/testing-tool">
+                        <textarea class="code-div" id="schema-code" name="code"></textarea>
+                    </form>
                 </div>
             </div>
 

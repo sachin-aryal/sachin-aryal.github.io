@@ -1,6 +1,6 @@
 #schema-code{
     height: 670px;
-    width: 415px;
+    width: 100%;
     overflow: scroll;
     white-space: nowrap;
     padding: 20px;
@@ -107,4 +107,11 @@ body{
     margin-top: -7px;
     margin-right: 5px;
     cursor: default !important;
+}
+
+#validate-button{
+    margin-left: 2px;
+    background-color: green;
+    color: white;
+    float: right;
 }

@@ -1,7 +1,7 @@
 function writeResult(){
     let result = jQuery("#schema-code");
     result.val("");
-    let buildTA = "<script type='application/ld+json'>\n{\n  \"@context\": \"http://www.schema.org\",";
+    let buildTA = "<script type=\"application/ld+json\">\n{\n  \"@context\": \"http://www.schema.org\",";
 
     if(jQuery("#type").val() != ""){
         buildTA += "\n  \"@type\": \""+jQuery("#type").val().replace(/ /g,"")+"\",";
@@ -261,4 +261,8 @@ function geolocate() {
             autocomplete.setBounds(circle.getBounds());
         });
     }
+}
+
+function submitGoogleForm() {
+    $("#to-google-validation").submit()
 }
