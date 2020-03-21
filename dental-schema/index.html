@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Schema Generator</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+    <script src="js/jquery-3.2.1.slim.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/custom.js"></script>
+    <link rel = "stylesheet" href = "http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+    <script type="text/javascript">
+        $(function () {
+            writeResult();
+            jQuery(document).on({
+                keyup: function(){ writeResult(); },
+                change: function(){ writeResult(); },
+                click: function(){ writeResult(); }
+            }, ".code-fields");
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+        })
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Schema Generator</a>
+</nav>
+<div class="container" style="margin-top: 20px">
+    <div class="row">
+        <div id="search-div" class="col-7">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="padding: 10px">
+                    <h6>
+                        <button type="button" class="btn btn-circle btn-sm">1</button>
+                        Enter Name of Dental Practice
+                    </h6>
+                </div>
+                <div class="panel-body]]]" style="padding: 20px">
+                    <div class="form-group">
+                        <input class="form-control" id="autocomplete" placeholder="Enter Place" onFocus="geolocate()" type="text"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="addNewFieldModal" tabindex="-1" role="dialog" aria-labelledby="addNewFieldModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Field</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="fieldName">Field Name</label>
+                        <input type="text" name="fieldName" id="fieldName" class="form-control"/>
+                    </div>
+                    <button onclick="createNewField()" type="button" class="btn btn-primary">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row container-custom" style="margin-top: 10px">
+        <div class="panel panel-default col-7" id="field-list">
+            <div class="panel-heading" style="padding: 10px">
+                <h6 style="display: inline-block">
+                    <button type="button" class="btn btn-circle btn-sm">2</button>
+                    Verify/Add Details
+                </h6>
+                <button onclick="clearAllData()" type="button" class="btn btn-sm btn-danger field-button">Reset</button>
+                <button data-toggle="modal" data-target="#addNewFieldModal" class="btn btn-sm field-button order-custom-schema">Order Custom Schema</button>
+            </div>
+            <div class="panel-body field-div" style="padding: 38px">
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="type">Type</label>
+                        <div class="input-group">
+                            <input name="type" value="Dentist" id="type" class="form-control code-fields left-border-none" readonly="readonly"/>
+                            <span class="input-group-addon transparent" data-toggle="tooltip" title="Type of Entity">
+                                <i class='fa fa-question-circle' aria-hidden='true'></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="name">Name</label>
+                        <div class="input-group">
+                            <input name="name" id="name" class="form-control code-fields left-border-none"/>
+                            <span class="input-group-addon transparent" data-toggle="tooltip" title="Name of your dental entity">
+                                <i class='fa fa-question-circle' aria-hidden='true'></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-12">
+                        <label for="description">Description</label>
+                        <div class="input-group">
+                            <textarea name="description" placeholder="Describe your business" rows="5" id="description" class="form-control code-fields left-border-none"></textarea>
+                            <span class="input-group-addon transparent" data-toggle="tooltip" title="Describe your business">
+                                <i class='fa fa-question-circle' aria-hidden='true'></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="url">URL</label>
+                        <div class="input-group">
+                            <input name="url" id="url" class="form-control code-fields left-border-none"/>
+                            <span class="input-group-addon transparent" data-toggle="tooltip" title="Your dental website">
+                                <i class='fa fa-question-circle' aria-hidden='true'></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="pricerange">Price Range</label>
+                        <div class="input-group">
+                            <input name="pricerange" id="pricerange" class="form-control code-fields left-border-none"/>
+                            <span class="input-group-addon transparent" data-toggle="tooltip" title="For example: $$">
+                                <i class='fa fa-question-circle' aria-hidden='true'></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="telephone">Telephone</label>
+                        <div class="input-group">
+                            <input name="telephone" id="telephone" class="form-control code-fields left-border-none"/>
+                            <span class="input-group-addon transparent" data-toggle="tooltip" title="Business telephone">
+                                <i class='fa fa-question-circle' aria-hidden='true'></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="image">Image</label>
+                        <div class="input-group">
+                            <input name="image" id="image" class="form-control code-fields left-border-none"/>
+                            <span class="input-group-addon transparent" data-toggle="tooltip" title="Logo of business or any other relevant image to entity">
+                                <i class='fa fa-question-circle' aria-hidden='true'></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading"><b>Address</b></div>
+                    <div class="panel-body" style="padding: 20px">
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <label for="streetAddress">Street Address</label>
+                                <input name="streetAddress" id="streetAddress" class="form-control code-fields"/>
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="addressLocality">City</label>
+                                <input name="addressLocality" id="addressLocality" class="form-control code-fields"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <label for="addressRegion">State</label>
+                                <input name="addressRegion" id="addressRegion" class="form-control code-fields"/>
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="postalCode">Postal Code</label>
+                                <input name="postalCode" id="postalCode" class="form-control code-fields"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading"><b>Geo</b></div>
+                    <div class="panel-body" style="padding: 20px">
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <label for="latitude">Latitude</label>
+                                <input name="latitude" id="latitude" class="form-control code-fields"/>
+                            </div>
+                            <div class="form-group  col-6">
+                                <label for="longitude">Longitude</label>
+                                <input name="longitude" id="longitude" class="form-control code-fields"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="openingHours">Opening Hours</label>
+                    <textarea placeholder="Enter each days in new line
+
+Example
+Monday: 9:00 AM – 5:30 PM
+Tuesday: 9:00 AM – 5:30 PM"
+                              name="openingHours" id="openingHours" rows="5" class="form-control code-fields"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="sameAs">Same As</label>
+                    <textarea placeholder="Enter each URL into a new line.
+
+Example:
+https://www.facebook.com/dental-page
+https://twitter.com/your-local-dentist
+" name="sameAs" id="sameAs" rows="5" class="form-control code-fields"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="hasMap">Google MAP URL</label>
+                    <input name="hasMap" id="hasMap" class="form-control code-fields"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-5 code-div-parent">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="padding: 10px">
+                    <h6 style="display: inline-block">
+                        <button type="button" class="btn btn-circle btn-sm">3</button>
+                        Copy Result
+                    </h6>
+                    <button data-toggle="tooltip" data-placement="right" title="Copy to Clipboard" class="btn btn-sm my-tool-tip" onclick="copyToClipBoard()">Copy Result</button>
+                </div>
+                <div class="panel-body" style="padding: 15px">
+                    <textarea class="code-div" id="schema-code">
+
+                    </textarea>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="map" style="visibility: hidden"></div>
+</div>
+<script>
+    var autocomplete;
+
+    var componentForm = {
+        subpremise: "short_name",
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'short_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+    };
+
+    function initAutocomplete() {
+        // Create the autocomplete object, restricting the search predictions to
+        // geographical location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            document.getElementById('autocomplete'));
+
+        // Avoid paying for data that you don't need by restricting the set of
+        // place fields that are returned to just the address components.
+        // autocomplete.setFields(['address_component']);
+
+        // When the user selects an address from the drop-down, populate the
+        // address fields in the form.
+        autocomplete.addListener('place_changed', fillInAddress);
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWTXjSWGG0eHUsTv5QYQbKGeDtqqlblv4&v=3.exp&sensor=false&libraries=places&callback=initAutocomplete"
+        async defer></script>
+</body>
+</html>
