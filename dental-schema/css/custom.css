@@ -98,15 +98,14 @@ body{
 .btn-circle.btn-sm {
     width: 25px;
     height: 25px;
-    padding: 4px 0px;
-    border-radius: 15px;
-    font-size: 12px;
+    border-radius: 50%;
+    font-size: 12.5px;
     text-align: center;
     background-color: red;
     color: white;
-    margin-top: -7px;
-    margin-right: 5px;
     cursor: default !important;
+    line-height: 50%;
+    margin-bottom: 3px;
 }
 
 #validate-button{
