@@ -39,9 +39,12 @@
                         Enter Name of Dental Practice
                     </h6>
                 </div>
-                <div class="panel-body]]]" style="padding: 20px">
-                    <div class="form-group">
-                        <input class="form-control" id="autocomplete" placeholder="Enter Place" onFocus="geolocate()" type="text"/>
+                <div class="panel-body" style="padding: 20px">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <input class="form-control" id="autocomplete-fake" placeholder="Enter Place" onFocus="geolocate()" type="text"/>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <input class="form-control" style="display: none;" id="autocomplete" placeholder="Enter Place" onFocus="geolocate()" type="text"/>
                     </div>
                 </div>
             </div>
@@ -250,8 +253,12 @@ https://twitter.com/your-local-dentist
     function initAutocomplete() {
         // Create the autocomplete object, restricting the search predictions to
         // geographical location types.
+        let autocompleteInput = $("#autocomplete");
+        let autocompleteFakeInput = $("#autocomplete-fake");
         autocomplete = new google.maps.places.Autocomplete(
             document.getElementById('autocomplete'));
+        autocomplete.setFields(['name', 'address_component', 'international_phone_number', 'website', 'geometry',
+            'opening_hours', 'url']);
 
         // Avoid paying for data that you don't need by restricting the set of
         // place fields that are returned to just the address components.
@@ -259,7 +266,33 @@ https://twitter.com/your-local-dentist
 
         // When the user selects an address from the drop-down, populate the
         // address fields in the form.
+        autocompleteFakeInput.on("keyup keypress input keydown", function () {
+            let val = $(this).val();
+            if(val.length >= 4){
+                showOriginal(autocompleteInput, this, val);
+            }
+        });
+        autocompleteInput.on("keyup keypress input keydown", function () {
+            let val = $(this).val();
+            if(val.length < 4){
+                showFake(autocompleteFakeInput, this, val);
+            }
+        });
         autocomplete.addListener('place_changed', fillInAddress);
+    }
+
+    function showOriginal(autocompleteInput, me, val) {
+        autocompleteInput.show();
+        $(me).css("display", "none");
+        autocompleteInput.val(val);
+        autocompleteInput.focus();
+    }
+
+    function showFake(autocompleteFakeInput, me, val) {
+        autocompleteFakeInput.show();
+        $(me).css("display", "none");
+        autocompleteFakeInput.val(val);
+        autocompleteFakeInput.focus();
     }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWTXjSWGG0eHUsTv5QYQbKGeDtqqlblv4&v=3.exp&sensor=false&libraries=places&callback=initAutocomplete"
