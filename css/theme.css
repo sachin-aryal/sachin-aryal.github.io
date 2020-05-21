@@ -191,8 +191,7 @@ img {
     left: 0px;
     font-weight: 800;
     padding: 3px 30px 2px 10px;
-    color: white;
-    background-color: rgba(25, 25, 25, 0.2); }
+    color: white;}
 .progress .progress-completed {
     position: absolute;
     right: 0px;
